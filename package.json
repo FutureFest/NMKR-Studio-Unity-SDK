@@ -1,0 +1,11 @@
+{
+  "name": "com.nmkr.sdk",
+  "displayName": "NMKR Studio Unity SDK",
+  "version": "0.1.0-pre.1",
+  "unity": "2022.3",
+  "description": "An Unity wrapper for NMKR Studio API",
+  "keywords": [ "nmkr", "studio", "api", "sdk", "wrapper", "nft", "mint"],
+  "dependencies": {
+    
+  }
+}
