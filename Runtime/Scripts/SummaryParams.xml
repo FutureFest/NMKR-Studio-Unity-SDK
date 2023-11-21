@@ -1,0 +1,17 @@
+<docs>
+  <param name="projectuid">
+    <summary>The unique identifier of the project.</summary>
+  </param>
+  <param name="receiveraddress">
+    <summary>The receiving wallet address.</summary>
+  </param>
+  <param name="nftuid">
+    <summary>The unique identifier of the NFT.</summary>
+  </param>
+  <param name="onSuccess">
+    <summary>Action to be called upon successful completion of the request.</summary>
+  </param>
+  <param name="onFailure">
+    <summary>Action to be called if the request fails, with error details.</summary>
+  </param>
+</docs>
