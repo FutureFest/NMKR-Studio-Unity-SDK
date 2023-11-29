@@ -36,6 +36,42 @@ To integrate the NMKR Studio Unity SDK into your Unity project, follow these ste
     5. Package should be under Packages folder in Project view
 3. Package should be installed and ready to use!
 
+
+### Example Initialize
+
+Here's an example of how you would initialize the SDK for Preprod:
+
+```csharp
+using UnityEngine;
+using Nmkr.Sdk;
+using Nmkr.Sdk.Schemas;
+using static Nmkr.Sdk.Api;
+
+public class ExampleUsage : MonoBehaviour
+{
+    [SerializeField] private string customerId = "000000"; //user id of NMKR Studio account
+    [SerializeField] private string apiKey = "abc...123"; // api keys are created from NMKR Studio website
+    [Space]
+    [SerializeField] private string projectUid = "123...abc";
+
+    private void Awake()
+    {
+        ApiSettings settings = new ApiSettings()
+        {
+            apiServer = ApiServer.Preprod,
+            apiKey = apiKey
+        };
+
+				// After initialization, the NMKR Studio API can now be used
+        Initialize(settings);
+    }
+}
+```
+
+---
+
+
+
 ## **Support and Documentation**
 
 For further support and detailed documentation, please visit the following links:
