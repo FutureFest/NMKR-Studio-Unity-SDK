@@ -87,18 +87,18 @@ Below is a prototype of the designs for the demo we are creating.
 - View/copy managed wallet address
 
 <aside>
-![Figma Prototype](https://www.figma.com/proto/MB5uCN0xMbdrFOxqOWSJeo/NMKR-SDK?type=design&node-id=0-1&viewport=-1505%2C104%2C0.23&t=f950ik95b4DplFAy-0&scaling=min-zoom&starting-point-node-id=19%3A7738&show-proto-sidebar=1 Prototype)
+![Figma Prototype](https://www.figma.com/proto/MB5uCN0xMbdrFOxqOWSJeo/NMKR-SDK?type=design&node-id=0-1&viewport=-1505%2C104%2C0.23&t=f950ik95b4DplFAy-0&scaling=min-zoom&starting-point-node-id=19%3A7738&show-proto-sidebar=1)
 </aside>
 
-![Account Creation.png](./Documentation~/Images/Account_Creation.png)
+![Account Creation](./Documentation~/Images/Account-Creation.png)
 
-![Shop Page.png](./Documentation~/Images/Shop_Page.png)
+![Shop Page](./Documentation~/Images/Shop-Page.png)
 
-![Confirmation.png](./Documentation~/Images/Confirmation.png)
+![Confirmation](./Documentation~/Images/Confirmation.png)
 
-![Inventory.png](./Documentation~/Images/Inventory.png)
+![Inventory](./Documentation~/Images/Inventory.png)
 
-![Add Address.png](./Documentation~/Images/Add_Address.png)
+![Add Address](./Documentation~/Images/Add-Address.png)
 
 
 
