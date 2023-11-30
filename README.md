@@ -15,7 +15,7 @@ The NMKR Studio Unity SDK is a software development kit designed to facilitate t
 Ensure that you have the following prerequisites in place:
 
 - Unity Project (tested on version 2022.3)
-- An NMKR Studio account (Preprod for testing and Mainnet of production)
+- An NMKR Studio account
     - Preprod for testing (https://studio.preprod.nmkr.io/)
     - Mainnet for production (https://studio.nmkr.io/)
 - Basic knowledge of Unity development
@@ -26,7 +26,7 @@ To integrate the NMKR Studio Unity SDK into your Unity project, follow these ste
 
 1. Copy package URL from GitHub
     1. Go to https://github.com/FutureFest/NMKR-Studio-Unity-SDK > Code > Local > HTTPS > Copy git URL
-    2. or copy it here: https://github.com/FutureFest/NMKR-Studio-Unity-SDK.git
+    2. or copy this: https://github.com/FutureFest/NMKR-Studio-Unity-SDK.git
     
 2. Import package into Unity project
     1. Go to your Unity project’s Package Manager
@@ -62,7 +62,7 @@ public class ExampleUsage : MonoBehaviour
             apiKey = apiKey
         };
 
-				// After initialization, the NMKR Studio API can now be used
+	// After initialization, the NMKR Studio API can now be used
         Initialize(settings);
     }
 }
