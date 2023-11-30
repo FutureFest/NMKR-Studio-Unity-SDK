@@ -70,6 +70,38 @@ public class ExampleUsage : MonoBehaviour
 
 ---
 
+## Demo Prototype
+
+Below is a prototype of the designs for the demo we are creating.
+
+- General Account Creation/Sign in
+    - Account name and password will match the created managed wallet name and password
+    - All sensitive information will be embedded in the demo (not to be used in production)
+- Storefront (View of NFTs on sale)
+- Inventory (View and send out purchased NFTS in your managed wallet)
+- Send out NFT from managed wallet to an external Cardano wallet
+- View/copy managed wallet address
+
+<aside>
+🦾 https://www.figma.com/proto/MB5uCN0xMbdrFOxqOWSJeo/NMKR-SDK?type=design&node-id=0-1&viewport=-1505%2C104%2C0.23&t=f950ik95b4DplFAy-0&scaling=min-zoom&starting-point-node-id=19%3A7738&show-proto-sidebar=1 Prototype
+
+</aside>
+
+![Account Creation.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/3c9c244f-3a8d-46a3-a70e-16df1b5bee81/a989d7fb-cb21-4515-91a8-d3feb43fda28/Account_Creation.png)
+
+![Shop Page.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/3c9c244f-3a8d-46a3-a70e-16df1b5bee81/9ffea342-65a7-4abb-914c-94eb51f5b6ce/Shop_Page.png)
+
+![Confirmation.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/3c9c244f-3a8d-46a3-a70e-16df1b5bee81/7e404868-fac1-4327-b4ae-b06fda0bbb33/Confirmation.png)
+
+![Inventory.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/3c9c244f-3a8d-46a3-a70e-16df1b5bee81/234e7a48-3b92-4953-8108-3edc980ac419/Inventory.png)
+
+![Add Address.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/3c9c244f-3a8d-46a3-a70e-16df1b5bee81/eb79c40c-00f5-434e-b102-24becdb27c5b/Add_Address.png)
+
+
+
+
+---
+
 
 
 ## **Support and Documentation**
