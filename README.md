@@ -1,4 +1,6 @@
-# NMKR-Studio-Unity-SDK
+![NMKR Studio Banner](./Documentation~/Images/nmkr_banner.png)
+
+# NMKR Studio Unity SDK
 A Unity wrapper for NMKR Studio API
 
 
@@ -71,11 +73,6 @@ public class ExampleUsage : MonoBehaviour
 > You are responsible for the security of your NMKR API keys. Make sure all API calls requiring your API key are implemented on the server and hidden from clients. Revoke and recreate your api keys if exposed to clients immediately!
 
 ---
-## Tasklist
-
-[Tasklist](./TASKLIST.md)
-
----
 
 ## Demo Prototype
 
@@ -89,9 +86,9 @@ Below is a prototype of the designs for the demo we are creating.
 - Send out NFT from managed wallet to an external Cardano wallet
 - View/copy managed wallet address
 
-<aside>
+
 [Figma Prototype](https://www.figma.com/proto/MB5uCN0xMbdrFOxqOWSJeo/NMKR-SDK?type=design&node-id=0-1&viewport=-1505%2C104%2C0.23&t=f950ik95b4DplFAy-0&scaling=min-zoom&starting-point-node-id=19%3A7738&show-proto-sidebar=1)
-</aside>
+
 
 ![Account Creation](./Documentation~/Images/Account-Creation.png)
 
@@ -116,6 +113,10 @@ For further support and detailed documentation, please visit the following links
 
 - Swagger API Documentation: https://studio-api.preprod.nmkr.io/swagger/index.html
 - Learn more about NMKR: https://www.nmkr.io/
+
+## Tasklist
+
+[Tasklist](./TASKLIST.md)
 
 ---
 
