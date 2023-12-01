@@ -67,10 +67,13 @@ public class ExampleUsage : MonoBehaviour
     }
 }
 ```
+> [!CAUTION]
+> You are responsible for the security of your NMKR API keys. Make sure all API calls requiring your API key are implemented on the server and hidden from clients. Revoke and recreate your api keys if exposed to clients immediately!
+
 ---
 ## Tasklist
 
-![Tasklist](./TASKLIST.md)
+[Tasklist](./TASKLIST.md)
 
 ---
 
@@ -87,7 +90,7 @@ Below is a prototype of the designs for the demo we are creating.
 - View/copy managed wallet address
 
 <aside>
-![Figma Prototype](https://www.figma.com/proto/MB5uCN0xMbdrFOxqOWSJeo/NMKR-SDK?type=design&node-id=0-1&viewport=-1505%2C104%2C0.23&t=f950ik95b4DplFAy-0&scaling=min-zoom&starting-point-node-id=19%3A7738&show-proto-sidebar=1)
+[Figma Prototype](https://www.figma.com/proto/MB5uCN0xMbdrFOxqOWSJeo/NMKR-SDK?type=design&node-id=0-1&viewport=-1505%2C104%2C0.23&t=f950ik95b4DplFAy-0&scaling=min-zoom&starting-point-node-id=19%3A7738&show-proto-sidebar=1)
 </aside>
 
 ![Account Creation](./Documentation~/Images/Account-Creation.png)
