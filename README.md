@@ -87,6 +87,9 @@ Below is a prototype of the designs for the demo we are creating.
 - View/copy managed wallet address
 
 
+> [!CAUTION]
+> This demo is not meant for production. The purpose for this demo is to get an idea of how the SDK works. You are responsible for the security of your NMKR API keys.
+
 [Figma Prototype](https://www.figma.com/proto/MB5uCN0xMbdrFOxqOWSJeo/NMKR-SDK?type=design&node-id=0-1&viewport=-1505%2C104%2C0.23&t=f950ik95b4DplFAy-0&scaling=min-zoom&starting-point-node-id=19%3A7738&show-proto-sidebar=1)
 
 
