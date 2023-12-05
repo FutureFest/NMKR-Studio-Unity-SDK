@@ -467,7 +467,7 @@ namespace Nmkr.Sdk.Schemas
     public class CreateWalletResultClass
     {
         public string address;
-        public string adressType;
+        [JsonProperty("adressType")] public string addressType;
         public string network;
         public string walletName;
         public string seedPhrase;
@@ -1187,7 +1187,7 @@ namespace Nmkr.Sdk.Schemas
     public class Wallet
     {
         public string address;
-        public string adressType;
+        [JsonProperty("adressType")] public string addressType;
         public string network;
         public string walletName;
         public string state;

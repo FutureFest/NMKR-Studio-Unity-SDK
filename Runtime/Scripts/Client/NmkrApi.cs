@@ -12,9 +12,9 @@ namespace Nmkr.Sdk
         {
             public ApiServer apiServer;
             public string apiKey;
-            public string customerId;
+            public int customerId;
 
-            public ApiSettings(ApiServer server, string apiKey, string customnerId)
+            public ApiSettings(ApiServer server, string apiKey, int customnerId)
             {
                 this.apiServer = server;
                 this.apiKey = apiKey;
@@ -31,7 +31,7 @@ namespace Nmkr.Sdk
         private const string API_SERVER_MAINNET = "https://studio-api.nmkr.io/v2";
         private const string API_SERVER_PREPROD = "https://studio-api.preprod.nmkr.io/v2";
 
-        private static string _customerId = string.Empty;
+        private static int _customerId = 000000;
         private static string _apiServerUrl = API_SERVER_PREPROD;
         private static string _apiKey = string.Empty;
         private static bool _initialized = false;

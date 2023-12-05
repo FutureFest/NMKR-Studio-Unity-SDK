@@ -21,6 +21,19 @@ namespace Nmkr.Sdk
         }
 
         /// <summary>
+        /// Creates a Managed Wallet with a specified name.
+        /// </summary>
+        /// <param name="walletpassword">The wallet password.</param>
+        /// <param name="enterpriseaddress">Boolean indicating if the address is an enterprise address.</param>
+        /// <param name="walletname">The name of the wallet.</param>
+        /// <param name="onSuccess">Action to perform on successful creation.</param>
+        /// <param name="onFailure">Action to perform on execution failure.</param>
+        public static void CreateWallet(string walletpassword, bool enterpriseaddress, string walletname, Action<CreateWalletResultClass> onSuccess, Action<ResponseError> onFailure = null)
+        {
+            CreateWallet(Api._customerId, walletpassword, enterpriseaddress, walletname, onSuccess, onFailure);
+        }
+
+        /// <summary>
         /// Creates a Managed Wallet without specifying a wallet name.
         /// </summary>
         /// <param name="customerid">The customer identifier.</param>
@@ -32,6 +45,18 @@ namespace Nmkr.Sdk
         {
             var endpoint = $"CreateWallet/{customerid}/{walletpassword}/{enterpriseaddress}";
             await GetAsync(endpoint, onSuccess, onFailure);
+        }
+
+        /// <summary>
+        /// Creates a Managed Wallet without specifying a wallet name.
+        /// </summary>
+        /// <param name="walletpassword">The wallet password.</param>
+        /// <param name="enterpriseaddress">Boolean indicating if the address is an enterprise address.</param>
+        /// <param name="onSuccess">Action to perform on successful creation.</param>
+        /// <param name="onFailure">Action to perform on execution failure.</param>
+        public static void CreateWallet(string walletpassword, bool enterpriseaddress, Action<CreateWalletResultClass> onSuccess, Action<ResponseError> onFailure = null)
+        {
+            CreateWallet(Api._customerId, walletpassword, enterpriseaddress, onSuccess, onFailure);
         }
 
         /// <summary>
