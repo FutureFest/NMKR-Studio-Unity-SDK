@@ -1182,8 +1182,9 @@ namespace Nmkr.Sdk.Schemas
         public string name;
     }
 
+    // Api calls this "Wallets"
     [System.Serializable]
-    public class Wallets
+    public class Wallet
     {
         public string address;
         public string adressType;

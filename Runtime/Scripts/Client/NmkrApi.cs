@@ -12,17 +12,26 @@ namespace Nmkr.Sdk
         {
             public ApiServer apiServer;
             public string apiKey;
+            public string customerId;
+
+            public ApiSettings(ApiServer server, string apiKey, string customnerId)
+            {
+                this.apiServer = server;
+                this.apiKey = apiKey;
+                this.customerId = customnerId;
+            }
         }
 
         public enum ApiServer
         {
-            Mainnet,
-            Preprod
+            Preprod,
+            Mainnet
         }
         
         private const string API_SERVER_MAINNET = "https://studio-api.nmkr.io/v2";
         private const string API_SERVER_PREPROD = "https://studio-api.preprod.nmkr.io/v2";
 
+        private static string _customerId = string.Empty;
         private static string _apiServerUrl = API_SERVER_PREPROD;
         private static string _apiKey = string.Empty;
         private static bool _initialized = false;
@@ -31,13 +40,7 @@ namespace Nmkr.Sdk
         {
             _apiServerUrl = GetApiServerUrl(settings.apiServer);
             _apiKey = settings.apiKey;
-            _initialized = true;
-            Debug.Log($"Initialized NMKR API. API server url: {_apiServerUrl}");
-        }
-
-        public static void Initialize(string apiKey)
-        {
-            _apiKey = apiKey;
+            _customerId = settings.customerId;
             _initialized = true;
             Debug.Log($"Initialized NMKR API. API server url: {_apiServerUrl}");
         }

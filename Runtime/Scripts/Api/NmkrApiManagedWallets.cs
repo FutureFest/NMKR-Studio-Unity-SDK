@@ -65,9 +65,20 @@ namespace Nmkr.Sdk
         /// <param name="customerid">The customer identifier.</param>
         /// <param name="onSuccess">Action to perform on successful retrieval.</param>
         /// <param name="onFailure">Action to perform on execution failure.</param>
-        public static async void ListAllWallets(int customerid, Action<Wallets[]> onSuccess, Action<ResponseError> onFailure = null)
+        public static async void ListAllWallets(int customerid, Action<Wallet[]> onSuccess, Action<ResponseError> onFailure = null)
         {
             var endpoint = $"ListAllWallets/{customerid}";
+            await GetAsync(endpoint, onSuccess, onFailure);
+        }
+
+        /// <summary>
+        /// Lists all wallets for a given customer.
+        /// </summary>
+        /// <param name="onSuccess">Action to perform on successful retrieval.</param>
+        /// <param name="onFailure">Action to perform on execution failure.</param>
+        public static async void ListAllWallets(Action<Wallet[]> onSuccess, Action<ResponseError> onFailure = null)
+        {
+            var endpoint = $"ListAllWallets/{Api._customerId}";
             await GetAsync(endpoint, onSuccess, onFailure);
         }
 
@@ -77,12 +88,13 @@ namespace Nmkr.Sdk
         /// <param name="customerid">The customer identifier.</param>
         /// <param name="senderaddress">The sender wallet address.</param>
         /// <param name="walletpassword">The wallet password.</param>
+        /// <param name="request">Data containing info of receiving wallets.</param>
         /// <param name="onSuccess">Action to perform on successful transaction.</param>
         /// <param name="onFailure">Action to perform on execution failure.</param>
-        public static async void MakeTransaction(int customerid, string senderaddress, string walletpassword, Action<MakeTransactionResultClass> onSuccess, Action<ResponseError> onFailure = null)
+        public static async void MakeTransaction(int customerid, string senderaddress, string walletpassword, CreateManagedWalletTransactionClass request, Action<MakeTransactionResultClass> onSuccess, Action<ResponseError> onFailure = null)
         {
             var endpoint = $"MakeTransaction/{customerid}/{senderaddress}/{walletpassword}";
-            await PostAsync(endpoint, onSuccess, onFailure);
+            await PostAsync(endpoint, request, onSuccess, onFailure);
         }
     }
 }
