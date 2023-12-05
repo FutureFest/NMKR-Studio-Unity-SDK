@@ -6,12 +6,17 @@
   "description": "A Unity wrapper for NMKR Studio API",
   "keywords": [
     "nmkr",
-    "studio", "maker"
+    "studio", 
+    "maker",
     "api",
     "sdk",
     "wrapper",
     "nft",
-    "mint","ada","cardano", "web3", "decentralization"
+    "mint",
+    "ada",
+    "cardano", 
+    "web3",
+    "decentralization"
   ],
   "dependencies": {
     "com.unity.nuget.newtonsoft-json": "3.2.1"
