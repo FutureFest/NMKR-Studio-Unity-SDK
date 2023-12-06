@@ -96,6 +96,35 @@ namespace Nmkr.Sdk
             }
         }
 
+        private static ResponseError GetApiError(string errorPrefix, string url, UnityWebRequest request)
+        {
+            Debug.LogError($"{errorPrefix}. {request.result}. Endpoint: {url}.\n Error: {request.error}");
+            if (request.downloadHandler != null && string.IsNullOrEmpty(request.downloadHandler.text) == false)
+            {
+                var errorResponse = JsonConvert.DeserializeObject<ApiErrorResultClass>(request.downloadHandler.text);
+                ResponseError error = new ResponseError()
+                {
+                    type = GetResponseErrorType(request.result),
+                    message = request.error,
+                    responseCode = request.responseCode,
+                    apiMessage = errorResponse.errorMessage
+                };
+
+                return error;
+            }
+            else
+            {
+                ResponseError error = new ResponseError()
+                {
+                    type = GetResponseErrorType(request.result),
+                    message = request.error,
+                    responseCode = request.responseCode,
+                };
+
+                return error;
+            }
+        }
+
         private static ErrorType GetResponseErrorType(UnityWebRequest.Result response)
         {
             switch(response)
@@ -116,6 +145,17 @@ namespace Nmkr.Sdk
                 message = ex.ToString(),
             };
             onFailure?.Invoke(error);
+        }
+
+        private static ResponseError GetException(string errorPrefix, string endpoint, Exception ex)
+        {
+            Debug.LogError($"{errorPrefix} Endpoint: {endpoint};\n Ex: {ex}");
+            ResponseError error = new ResponseError()
+            {
+                type = ErrorType.Unknown,
+                message = ex.ToString(),
+            };
+            return error;
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Nmkr.Sdk.Schemas;
 
 namespace Nmkr.Sdk
@@ -14,10 +15,10 @@ namespace Nmkr.Sdk
         /// <param name="walletname">The name of the wallet.</param>
         /// <param name="onSuccess">Action to perform on successful creation.</param>
         /// <param name="onFailure">Action to perform on execution failure.</param>
-        public static async void CreateWallet(int customerid, string walletpassword, bool enterpriseaddress, string walletname, Action<CreateWalletResultClass> onSuccess, Action<ResponseError> onFailure = null)
+        public static async Task<GetResponse<CreateWalletResultClass>> CreateWallet(int customerid, string walletpassword, bool enterpriseaddress, string walletname, Action<CreateWalletResultClass> onSuccess = null, Action<ResponseError> onFailure = null)
         {
             var endpoint = $"CreateWallet/{customerid}/{walletpassword}/{enterpriseaddress}/{walletname}";
-            await GetAsync(endpoint, onSuccess, onFailure);
+            return await GetAsync(endpoint, onSuccess, onFailure);
         }
 
         /// <summary>
@@ -28,9 +29,9 @@ namespace Nmkr.Sdk
         /// <param name="walletname">The name of the wallet.</param>
         /// <param name="onSuccess">Action to perform on successful creation.</param>
         /// <param name="onFailure">Action to perform on execution failure.</param>
-        public static void CreateWallet(string walletpassword, bool enterpriseaddress, string walletname, Action<CreateWalletResultClass> onSuccess, Action<ResponseError> onFailure = null)
+        public static async Task<GetResponse<CreateWalletResultClass>> CreateWallet(string walletpassword, bool enterpriseaddress, string walletname, Action<CreateWalletResultClass> onSuccess = null, Action<ResponseError> onFailure = null)
         {
-            CreateWallet(Api._customerId, walletpassword, enterpriseaddress, walletname, onSuccess, onFailure);
+            return await CreateWallet(Api._customerId, walletpassword, enterpriseaddress, walletname, onSuccess, onFailure);
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace Nmkr.Sdk
         /// <param name="enterpriseaddress">Boolean indicating if the address is an enterprise address.</param>
         /// <param name="onSuccess">Action to perform on successful creation.</param>
         /// <param name="onFailure">Action to perform on execution failure.</param>
-        public static async void CreateWallet(int customerid, string walletpassword, bool enterpriseaddress, Action<CreateWalletResultClass> onSuccess, Action<ResponseError> onFailure = null)
+        public static async Task CreateWallet(int customerid, string walletpassword, bool enterpriseaddress, Action<CreateWalletResultClass> onSuccess, Action<ResponseError> onFailure = null)
         {
             var endpoint = $"CreateWallet/{customerid}/{walletpassword}/{enterpriseaddress}";
             await GetAsync(endpoint, onSuccess, onFailure);
@@ -54,9 +55,9 @@ namespace Nmkr.Sdk
         /// <param name="enterpriseaddress">Boolean indicating if the address is an enterprise address.</param>
         /// <param name="onSuccess">Action to perform on successful creation.</param>
         /// <param name="onFailure">Action to perform on execution failure.</param>
-        public static void CreateWallet(string walletpassword, bool enterpriseaddress, Action<CreateWalletResultClass> onSuccess, Action<ResponseError> onFailure = null)
+        public static async Task CreateWallet(string walletpassword, bool enterpriseaddress, Action<CreateWalletResultClass> onSuccess, Action<ResponseError> onFailure = null)
         {
-            CreateWallet(Api._customerId, walletpassword, enterpriseaddress, onSuccess, onFailure);
+            await CreateWallet(Api._customerId, walletpassword, enterpriseaddress, onSuccess, onFailure);
         }
 
         /// <summary>
@@ -65,10 +66,10 @@ namespace Nmkr.Sdk
         /// <param name="address">The wallet address.</param>
         /// <param name="onSuccess">Action to perform on successful retrieval.</param>
         /// <param name="onFailure">Action to perform on execution failure.</param>
-        public static async void GetWalletUtxo(string address, Action<TxInAddressesClass[]> onSuccess, Action<ResponseError> onFailure = null)
+        public static async Task<GetResponse<TxInAddressesClass>> GetWalletUtxo(string address, Action<TxInAddressesClass> onSuccess = null, Action<ResponseError> onFailure = null)
         {
             var endpoint = $"GetWalletUtxo/{address}";
-            await GetAsync(endpoint, onSuccess, onFailure);
+            return await GetAsync(endpoint, onSuccess, onFailure);
         }
 
         /// <summary>

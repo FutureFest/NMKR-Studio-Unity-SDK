@@ -3,19 +3,25 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json;
-using Nmkr.Sdk.Schemas;
 
 namespace Nmkr.Sdk
 {
     public static partial class Api
     {
+        public class GetResponse<TResult>
+        {
+            public TResult result;
+            public ResponseError error;
+            public bool success => result != null;
+        }
+
         // GET
-        public static async Task GetAsync<TResponse>(string endpoint, Action<TResponse> onSuccess = null, Action<ResponseError> onFailure = null)
+        public static async Task<GetResponse<TResponse>> GetAsync<TResponse>(string endpoint, Action<TResponse> onSuccess = null, Action<ResponseError> onFailure = null)
         {
             if (!_initialized) 
             {
                 Debug.LogError($"NMKR SDK not initialized.");
-                return; 
+                return default; 
             }
 
             try
@@ -32,20 +38,40 @@ namespace Nmkr.Sdk
                 if (request.result != UnityWebRequest.Result.Success)
                 {
                     HandleApiError("NMKR GETAsync API error.", url, request, onFailure);
+                    var response = new GetResponse<TResponse>()
+                    {
+                        error = GetApiError("NMKR GETAsync API error.", url, request),
+                    };
+                    return response;
                 }
                 else if (request.downloadHandler != null && string.IsNullOrEmpty(request.downloadHandler.text) == false)
                 {
-                    var response = JsonConvert.DeserializeObject<TResponse>(request.downloadHandler.text);
-                    Debug.Log($"NMKR GETAsync success: {response}");
-                    onSuccess?.Invoke(response);
-                    return;
+                    var result = JsonConvert.DeserializeObject<TResponse>(request.downloadHandler.text);
+                    Debug.Log($"NMKR GETAsync success: {result}");
+                    onSuccess?.Invoke(result);
+
+                    var response = new GetResponse<TResponse>()
+                    {
+                        result = result,
+                    };
+
+                    return response;
                 }
             }
             catch (Exception ex)
             {
-
                 CatchException("NMKR GETAsync error.", endpoint, ex, onFailure);
+                var response = new GetResponse<TResponse>()
+                {
+                    error = GetException("NMKR GETAsync error.", endpoint, ex),
+                };
+                return response;
             }
+            var unknownResponse = new GetResponse<TResponse>()
+            {
+                error = GetException("NMKR GETAsync error.", endpoint, new Exception("Unknown Error")),
+            };
+            return unknownResponse;
         }
 
         // GETs should have responses, but some APIs dont have response objects to deserialize
