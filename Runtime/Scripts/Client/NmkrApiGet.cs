@@ -8,20 +8,17 @@ namespace Nmkr.Sdk
 {
     public static partial class Api
     {
-        public class GetResponse<TResult>
-        {
-            public TResult result;
-            public ResponseError error;
-            public bool success => result != null;
-        }
-
         // GET
-        public static async Task<GetResponse<TResponse>> GetAsync<TResponse>(string endpoint, Action<TResponse> onSuccess = null, Action<ResponseError> onFailure = null)
+        public static async Task<ApiResponse<TResponse>> GetAsync<TResponse>(string endpoint, Action<TResponse> onSuccess = null, Action<ResponseError> onFailure = null)
         {
             if (!_initialized) 
             {
                 Debug.LogError($"NMKR SDK not initialized.");
-                return default; 
+                var response = new ApiResponse<TResponse>()
+                {
+                    error = GetApiError("NMKR SDK not initialized.", string.Empty, null),
+                };
+                return response; 
             }
 
             try
@@ -38,7 +35,7 @@ namespace Nmkr.Sdk
                 if (request.result != UnityWebRequest.Result.Success)
                 {
                     HandleApiError("NMKR GETAsync API error.", url, request, onFailure);
-                    var response = new GetResponse<TResponse>()
+                    var response = new ApiResponse<TResponse>()
                     {
                         error = GetApiError("NMKR GETAsync API error.", url, request),
                     };
@@ -50,7 +47,7 @@ namespace Nmkr.Sdk
                     Debug.Log($"NMKR GETAsync success: {result}");
                     onSuccess?.Invoke(result);
 
-                    var response = new GetResponse<TResponse>()
+                    var response = new ApiResponse<TResponse>()
                     {
                         result = result,
                     };
@@ -61,13 +58,13 @@ namespace Nmkr.Sdk
             catch (Exception ex)
             {
                 CatchException("NMKR GETAsync error.", endpoint, ex, onFailure);
-                var response = new GetResponse<TResponse>()
+                var response = new ApiResponse<TResponse>()
                 {
                     error = GetException("NMKR GETAsync error.", endpoint, ex),
                 };
                 return response;
             }
-            var unknownResponse = new GetResponse<TResponse>()
+            var unknownResponse = new ApiResponse<TResponse>()
             {
                 error = GetException("NMKR GETAsync error.", endpoint, new Exception("Unknown Error")),
             };

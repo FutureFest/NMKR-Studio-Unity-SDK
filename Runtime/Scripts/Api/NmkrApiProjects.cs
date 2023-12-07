@@ -1,5 +1,6 @@
 using System;
 using System.Net;
+using System.Threading.Tasks;
 using Nmkr.Sdk.Schemas;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -125,10 +126,10 @@ namespace Nmkr.Sdk
         /// <param name="projectuid">Project unique identifier.</param>
         /// <param name="onSuccess">Action to perform on successful retrieval.</param>
         /// <param name="onFailure">Action to perform on execution failure.</param>
-        public static async void GetProjectDetails(string projectuid, Action<NftProjectsDetails> onSuccess, Action<ResponseError> onFailure = null)
+        public static async Task<ApiResponse<NftProjectsDetails>> GetProjectDetails(string projectuid, Action<NftProjectsDetails> onSuccess = null, Action<ResponseError> onFailure = null)
         {
             var endpoint = $"GetProjectDetails/{projectuid}";
-            await GetAsync(endpoint, onSuccess, onFailure);
+            return await GetAsync(endpoint, onSuccess, onFailure);
         }
 
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Nmkr.Sdk.Schemas;
 
 namespace Nmkr.Sdk
@@ -25,10 +26,10 @@ namespace Nmkr.Sdk
         /// <param name="receiveraddress"><include file='SummaryParams.xml' path='docs/param[@name="receiveraddress"]/*' /></param>
         /// <param name="onSuccess"><include file='SummaryParams.xml' path='docs/param[@name="onSuccess"]/*' /></param>
         /// <param name="onFailure"><include file='SummaryParams.xml' path='docs/param[@name="onFailure"]/*' /></param>
-        public static async void MintAndSendRandom(string projectuid, int countnft, string receiveraddress, Action<MintAndSendResultClass> onSuccess, Action<ResponseError> onFailure = null)
+        public static async Task<ApiResponse<MintAndSendResultClass>> MintAndSendRandom(string projectuid, int countnft, string receiveraddress, Action<MintAndSendResultClass> onSuccess = null, Action<ResponseError> onFailure = null)
         {
             var endpoint = $"MintAndSendRandom/{projectuid}/{countnft}/{receiveraddress}";
-            await GetAsync(endpoint, onSuccess, onFailure: (error) => { HandleError(error, onFailure); });
+            return await GetAsync(endpoint, onSuccess, onFailure: (error) => { HandleError(error, onFailure); });
         }
 
         /// <summary>

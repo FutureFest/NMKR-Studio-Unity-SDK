@@ -473,14 +473,6 @@ namespace Nmkr.Sdk.Schemas
         public string seedPhrase;
     }
 
-    public struct WalletInfo
-    {
-        public string walletName;
-        public string address;
-        public string addressType;
-        public string network;
-    }
-
     // CurrencyTypesstring Enum
     public enum CurrencyTypes
     {
@@ -1201,5 +1193,4 @@ namespace Nmkr.Sdk.Schemas
         public string state;
         public string created; // Expected format: date-time
     }
-
 }

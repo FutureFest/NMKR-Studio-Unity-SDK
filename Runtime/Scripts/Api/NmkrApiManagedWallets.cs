@@ -15,7 +15,7 @@ namespace Nmkr.Sdk
         /// <param name="walletname">The name of the wallet.</param>
         /// <param name="onSuccess">Action to perform on successful creation.</param>
         /// <param name="onFailure">Action to perform on execution failure.</param>
-        public static async Task<GetResponse<CreateWalletResultClass>> CreateWallet(int customerid, string walletpassword, bool enterpriseaddress, string walletname, Action<CreateWalletResultClass> onSuccess = null, Action<ResponseError> onFailure = null)
+        public static async Task<ApiResponse<CreateWalletResultClass>> CreateWallet(int customerid, string walletpassword, bool enterpriseaddress, string walletname, Action<CreateWalletResultClass> onSuccess = null, Action<ResponseError> onFailure = null)
         {
             var endpoint = $"CreateWallet/{customerid}/{walletpassword}/{enterpriseaddress}/{walletname}";
             return await GetAsync(endpoint, onSuccess, onFailure);
@@ -29,7 +29,7 @@ namespace Nmkr.Sdk
         /// <param name="walletname">The name of the wallet.</param>
         /// <param name="onSuccess">Action to perform on successful creation.</param>
         /// <param name="onFailure">Action to perform on execution failure.</param>
-        public static async Task<GetResponse<CreateWalletResultClass>> CreateWallet(string walletpassword, bool enterpriseaddress, string walletname, Action<CreateWalletResultClass> onSuccess = null, Action<ResponseError> onFailure = null)
+        public static async Task<ApiResponse<CreateWalletResultClass>> CreateWallet(string walletpassword, bool enterpriseaddress, string walletname, Action<CreateWalletResultClass> onSuccess = null, Action<ResponseError> onFailure = null)
         {
             return await CreateWallet(Api._customerId, walletpassword, enterpriseaddress, walletname, onSuccess, onFailure);
         }
@@ -66,7 +66,7 @@ namespace Nmkr.Sdk
         /// <param name="address">The wallet address.</param>
         /// <param name="onSuccess">Action to perform on successful retrieval.</param>
         /// <param name="onFailure">Action to perform on execution failure.</param>
-        public static async Task<GetResponse<TxInAddressesClass>> GetWalletUtxo(string address, Action<TxInAddressesClass> onSuccess = null, Action<ResponseError> onFailure = null)
+        public static async Task<ApiResponse<TxInAddressesClass>> GetWalletUtxo(string address, Action<TxInAddressesClass> onSuccess = null, Action<ResponseError> onFailure = null)
         {
             var endpoint = $"GetWalletUtxo/{address}";
             return await GetAsync(endpoint, onSuccess, onFailure);
@@ -117,10 +117,23 @@ namespace Nmkr.Sdk
         /// <param name="request">Data containing info of receiving wallets.</param>
         /// <param name="onSuccess">Action to perform on successful transaction.</param>
         /// <param name="onFailure">Action to perform on execution failure.</param>
-        public static async void MakeTransaction(int customerid, string senderaddress, string walletpassword, CreateManagedWalletTransactionClass request, Action<MakeTransactionResultClass> onSuccess, Action<ResponseError> onFailure = null)
+        public static async Task<ApiResponse<MakeTransactionResultClass>> MakeTransaction(int customerid, string senderaddress, string walletpassword, CreateManagedWalletTransactionClass request, Action<MakeTransactionResultClass> onSuccess = null, Action<ResponseError> onFailure = null)
         {
             var endpoint = $"MakeTransaction/{customerid}/{senderaddress}/{walletpassword}";
-            await PostAsync(endpoint, request, onSuccess, onFailure);
+            return await PostAsync(endpoint, request, onSuccess, onFailure);
+        }
+
+        /// <summary>
+        /// Creates a transaction for a managed wallet.
+        /// </summary>
+        /// <param name="senderaddress">The sender wallet address.</param>
+        /// <param name="walletpassword">The wallet password.</param>
+        /// <param name="request">Data containing info of receiving wallets.</param>
+        /// <param name="onSuccess">Action to perform on successful transaction.</param>
+        /// <param name="onFailure">Action to perform on execution failure.</param>
+        public static async Task<ApiResponse<MakeTransactionResultClass>> MakeTransaction(string senderaddress, string walletpassword, CreateManagedWalletTransactionClass request, Action<MakeTransactionResultClass> onSuccess = null, Action<ResponseError> onFailure = null)
+        {
+            return await MakeTransaction(Api._customerId, senderaddress, walletpassword, request, onSuccess, onFailure);
         }
     }
 }

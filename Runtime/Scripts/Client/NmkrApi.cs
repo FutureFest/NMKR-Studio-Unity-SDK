@@ -67,6 +67,13 @@ namespace Nmkr.Sdk
             } 
         }
 
+        public class ApiResponse<TResult>
+        {
+            public TResult result;
+            public ResponseError error;
+            public bool success => result != null;
+        }
+
         private static void HandleApiError(string errorPrefix, string url, UnityWebRequest request, Action<ResponseError> onFailure)
         {
             Debug.LogError($"{errorPrefix}. {request.result}. Endpoint: {url}.\n Error: {request.error}");
