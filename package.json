@@ -1,12 +1,12 @@
 {
   "name": "com.nmkr.sdk",
   "displayName": "NMKR Studio Unity SDK",
-  "version": "1.0.0-pre.1",
+  "version": "1.0.0-pre.2",
   "unity": "2022.3",
   "description": "A Unity wrapper for NMKR Studio API",
   "keywords": [
     "nmkr",
-    "studio", 
+    "studio",
     "maker",
     "api",
     "sdk",
@@ -14,7 +14,7 @@
     "nft",
     "mint",
     "ada",
-    "cardano", 
+    "cardano",
     "web3",
     "decentralization"
   ],
