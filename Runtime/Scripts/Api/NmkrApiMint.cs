@@ -83,7 +83,7 @@ namespace Nmkr.Sdk
         {
             if (errorCodes.TryGetValue(errorResult.responseCode, out string errorMessage))
             {
-                UnityEngine.Debug.LogError($"Error ({errorResult.responseCode}): {errorResult.apiMessage}");
+                UnityEngine.Debug.LogError($"Error ({errorResult.responseCode}): {errorResult.message}");
             }
             onFailureCallback?.Invoke(errorResult);
         }

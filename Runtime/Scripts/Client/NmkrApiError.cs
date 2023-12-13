@@ -6,7 +6,6 @@ namespace Nmkr.Sdk
         {
             public ErrorType type;
             public string message;
-            public string apiMessage;
             public long responseCode;
         }
 

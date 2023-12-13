@@ -10,12 +10,11 @@ namespace Nmkr.Sdk
     public static partial class Api
     {
         // DELETE with response
-        public static async Task DeleteAsync<TResponse>(string endpoint, Action<TResponse> onSuccess = null, Action<ResponseError> onFailure = null)
+        public static async Task<ApiResponse<TResponse>> DeleteAsync<TResponse>(string endpoint, Action<TResponse> onSuccess = null, Action<ResponseError> onFailure = null)
         {
             if (!_initialized)
             {
-                Debug.LogError("NMKR SDK not initialized.");
-                return;
+                return GetApiInitializeError<TResponse>();
             }
 
             try
@@ -29,21 +28,16 @@ namespace Nmkr.Sdk
                     await Task.Yield();
                 }
 
-                if (request.result != UnityWebRequest.Result.Success)
-                {
-                    HandleApiError("NMKR DELETEAsync API error.", url, request, onFailure);
-                }
-                else if (request.downloadHandler != null && !string.IsNullOrEmpty(request.downloadHandler.text))
-                {
-                    var response = JsonConvert.DeserializeObject<TResponse>(request.downloadHandler.text);
-                    Debug.Log($"NMKR DELETEAsync success: {response}");
-                    onSuccess?.Invoke(response);
-                    return;
-                }
+                return HandleApiResponse<TResponse>("DELETEAsync", request, url, onSuccess, onFailure);
+
             }
             catch (Exception ex)
             {
-                CatchException("NMKR DELETEAsync error.", endpoint, ex, onFailure);
+                var response = new ApiResponse<TResponse>()
+                {
+                    error = GetException("NMKR DELETEAsync error.", endpoint, ex, onFailure),
+                };
+                return response;
             }
         }
 
@@ -80,7 +74,7 @@ namespace Nmkr.Sdk
             }
             catch (Exception ex)
             {
-                CatchException("NMKR DELETEAsync error.", endpoint, ex, onFailure);
+                GetException("NMKR DELETEAsync error.", endpoint, ex, onFailure);
             }
         }
 

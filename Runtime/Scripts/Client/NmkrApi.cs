@@ -74,36 +74,51 @@ namespace Nmkr.Sdk
             public bool success => result != null;
         }
 
-        private static void HandleApiError(string errorPrefix, string url, UnityWebRequest request, Action<ResponseError> onFailure)
+        private static ApiResponse<TResponse> HandleApiResponse<TResponse>(string apiType, UnityWebRequest request, string url, Action<TResponse> onSuccess = null, Action<ResponseError> onFailure = null)
         {
-            Debug.LogError($"{errorPrefix}. {request.result}. Endpoint: {url}.\n Error: {request.error}");
-            if (request.downloadHandler != null && string.IsNullOrEmpty(request.downloadHandler.text) == false)
+            if (request.result != UnityWebRequest.Result.Success)
             {
-                var errorResponse = JsonConvert.DeserializeObject<ApiErrorResultClass>(request.downloadHandler.text);
-                ResponseError error = new ResponseError()
+                var errorResponse = HandleApiError($"NMKR {apiType} API error.", url, request, onFailure);
+                var response = new ApiResponse<TResponse>()
                 {
-                    type = GetResponseErrorType(request.result),
-                    message = request.error,
-                    responseCode = request.responseCode,
-                    apiMessage = errorResponse.errorMessage
+                    error = errorResponse
                 };
-                onFailure?.Invoke(error);
-                return;
+                return response;
+            }
+            else if (request.downloadHandler != null && string.IsNullOrEmpty(request.downloadHandler.text) == false)
+            {
+                var result = JsonConvert.DeserializeObject<TResponse>(request.downloadHandler.text);
+                Debug.Log($"NMKR {apiType} success: {result}");
+                onSuccess?.Invoke(result);
+
+                var response = new ApiResponse<TResponse>()
+                {
+                    result = result,
+                };
+
+                return response;
+            }
+            else if(request.result == UnityWebRequest.Result.Success)
+            {
+                // no downloadable response but still a success, send empty response instead of erroring
+                onSuccess?.Invoke(default);
+                var response = new ApiResponse<TResponse>()
+                {
+                    result = default,
+                };
+                return response;
             }
             else
             {
-                ResponseError error = new ResponseError()
+                var unknownResponse = new ApiResponse<TResponse>()
                 {
-                    type = GetResponseErrorType(request.result),
-                    message = request.error,
-                    responseCode = request.responseCode,
+                    error = GetException($"NMKR {apiType} error.", url, new Exception("Unknown Error"), onFailure),
                 };
-                onFailure?.Invoke(error);
-                return;
+                return unknownResponse;
             }
         }
 
-        private static ResponseError GetApiError(string errorPrefix, string url, UnityWebRequest request)
+        private static ResponseError HandleApiError(string errorPrefix, string url, UnityWebRequest request, Action<ResponseError> onFailure = null)
         {
             Debug.LogError($"{errorPrefix}. {request.result}. Endpoint: {url}.\n Error: {request.error}");
             if (request.downloadHandler != null && string.IsNullOrEmpty(request.downloadHandler.text) == false)
@@ -112,11 +127,10 @@ namespace Nmkr.Sdk
                 ResponseError error = new ResponseError()
                 {
                     type = GetResponseErrorType(request.result),
-                    message = request.error,
+                    message = errorResponse.errorMessage,
                     responseCode = request.responseCode,
-                    apiMessage = errorResponse.errorMessage
                 };
-
+                onFailure?.Invoke(error);
                 return error;
             }
             else
@@ -127,9 +141,19 @@ namespace Nmkr.Sdk
                     message = request.error,
                     responseCode = request.responseCode,
                 };
-
+                onFailure?.Invoke(error);
                 return error;
             }
+        }
+
+        private static ApiResponse<TResponse> GetApiInitializeError<TResponse>()
+        {
+            Debug.LogError($"NMKR SDK not initialized.");
+            var response = new ApiResponse<TResponse>()
+            {
+                error = HandleApiError("NMKR SDK not initialized.", string.Empty, null),
+            };
+            return response;
         }
 
         private static ErrorType GetResponseErrorType(UnityWebRequest.Result response)
@@ -143,7 +167,7 @@ namespace Nmkr.Sdk
             }
         }
 
-        private static void CatchException(string errorPrefix, string endpoint, Exception ex, Action<ResponseError> onFailure)
+        private static ResponseError GetException(string errorPrefix, string endpoint, Exception ex, Action<ResponseError> onFailure)
         {
             Debug.LogError($"{errorPrefix} Endpoint: {endpoint};\n Ex: {ex}");
             ResponseError error = new ResponseError()
@@ -152,16 +176,6 @@ namespace Nmkr.Sdk
                 message = ex.ToString(),
             };
             onFailure?.Invoke(error);
-        }
-
-        private static ResponseError GetException(string errorPrefix, string endpoint, Exception ex)
-        {
-            Debug.LogError($"{errorPrefix} Endpoint: {endpoint};\n Ex: {ex}");
-            ResponseError error = new ResponseError()
-            {
-                type = ErrorType.Unknown,
-                message = ex.ToString(),
-            };
             return error;
         }
     }

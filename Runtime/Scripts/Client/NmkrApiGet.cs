@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
-using Newtonsoft.Json;
 
 namespace Nmkr.Sdk
 {
@@ -13,12 +12,7 @@ namespace Nmkr.Sdk
         {
             if (!_initialized) 
             {
-                Debug.LogError($"NMKR SDK not initialized.");
-                var response = new ApiResponse<TResponse>()
-                {
-                    error = GetApiError("NMKR SDK not initialized.", string.Empty, null),
-                };
-                return response; 
+                return GetApiInitializeError<TResponse>(); 
             }
 
             try
@@ -32,43 +26,16 @@ namespace Nmkr.Sdk
                     await Task.Yield();
                 }
 
-                if (request.result != UnityWebRequest.Result.Success)
-                {
-                    HandleApiError("NMKR GETAsync API error.", url, request, onFailure);
-                    var response = new ApiResponse<TResponse>()
-                    {
-                        error = GetApiError("NMKR GETAsync API error.", url, request),
-                    };
-                    return response;
-                }
-                else if (request.downloadHandler != null && string.IsNullOrEmpty(request.downloadHandler.text) == false)
-                {
-                    var result = JsonConvert.DeserializeObject<TResponse>(request.downloadHandler.text);
-                    Debug.Log($"NMKR GETAsync success: {result}");
-                    onSuccess?.Invoke(result);
-
-                    var response = new ApiResponse<TResponse>()
-                    {
-                        result = result,
-                    };
-
-                    return response;
-                }
+                return HandleApiResponse<TResponse>("GETAsync", request, url, onSuccess, onFailure);
             }
             catch (Exception ex)
             {
-                CatchException("NMKR GETAsync error.", endpoint, ex, onFailure);
                 var response = new ApiResponse<TResponse>()
                 {
-                    error = GetException("NMKR GETAsync error.", endpoint, ex),
+                    error = GetException("NMKR GETAsync error.", endpoint, ex, onFailure),
                 };
                 return response;
             }
-            var unknownResponse = new ApiResponse<TResponse>()
-            {
-                error = GetException("NMKR GETAsync error.", endpoint, new Exception("Unknown Error")),
-            };
-            return unknownResponse;
         }
 
         // GETs should have responses, but some APIs dont have response objects to deserialize
@@ -104,7 +71,7 @@ namespace Nmkr.Sdk
             }
             catch (Exception ex)
             {
-                CatchException("NMKR GETAsync error.", endpoint, ex, onFailure);
+                GetException("NMKR GETAsync error.", endpoint, ex, onFailure);
             }
         }
 

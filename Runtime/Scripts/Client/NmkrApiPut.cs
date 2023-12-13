@@ -11,7 +11,7 @@ namespace Nmkr.Sdk
     public static partial class Api
     {
         // PUT with response
-        public static async Task<TResponse> PutAsync<TRequest, TResponse>(string endpoint, TRequest requestObject, Action<TResponse> onSuccess = null, Action<ResponseError> onFailure = null)
+        public static async Task<ApiResponse<TResponse>> PutAsync<TRequest, TResponse>(string endpoint, TRequest requestObject, Action<TResponse> onSuccess = null, Action<ResponseError> onFailure = null)
         {
             if (!_initialized)
             {
@@ -32,28 +32,16 @@ namespace Nmkr.Sdk
                         await Task.Yield();
                     }
 
-                    if (request.result != UnityWebRequest.Result.Success)
-                    {
-                        HandleApiError("NMKR PUTAsync API error.", url, request, onFailure);
-                    }
-                    else if (request.downloadHandler != null && !string.IsNullOrEmpty(request.downloadHandler.text))
-                    {
-                        var response = JsonConvert.DeserializeObject<TResponse>(request.downloadHandler.text);
-                        Debug.Log("NMKR PUTAsync success");
-                        onSuccess?.Invoke(response);
-                        return response;
-                    }
-                    else
-                    {
-                        onSuccess?.Invoke(default);
-                    }
-                    return default;
+                    return HandleApiResponse<TResponse>("PUTAsync", request, url, onSuccess, onFailure);
                 }
             }
             catch (Exception ex)
             {
-                CatchException("NMKR PUTAsync error.", endpoint, ex, onFailure);
-                return default;
+                var response = new ApiResponse<TResponse>()
+                {
+                    error = GetException("NMKR PUTAsync error.", endpoint, ex, onFailure),
+                };
+                return response;
             }
         }
 
@@ -92,7 +80,7 @@ namespace Nmkr.Sdk
             }
             catch (Exception ex)
             {
-                CatchException("NMKR PUTAsync error.", endpoint, ex, onFailure);
+                GetException("NMKR PUTAsync error.", endpoint, ex, onFailure);
                 return;
             }
         }
