@@ -1,12 +1,6 @@
 using System;
-using System.Net;
 using System.Threading.Tasks;
 using Nmkr.Sdk.Schemas;
-using UnityEditor.Experimental.GraphView;
-using UnityEngine;
-using static UnityEditor.PlayerSettings;
-using static UnityEngine.Networking.UnityWebRequest;
-using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 namespace Nmkr.Sdk
 {
