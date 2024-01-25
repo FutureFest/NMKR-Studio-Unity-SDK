@@ -20,5 +20,12 @@
   ],
   "dependencies": {
     "com.unity.nuget.newtonsoft-json": "3.2.1"
-  }
+  },
+"samples": [
+    {
+      "displayName": "Demo Project",
+      "description": "Example of using the NMKR SDK locally.",
+      "path": "Samples~/Demo"
+    }
+  ]
 }

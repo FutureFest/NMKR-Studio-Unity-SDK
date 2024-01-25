@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b05ee4ff344bccd4998d93ee8080acbe, type: 3}
+  m_Name: StorefrontItem_HappyRobotx3Discount
+  m_EditorClassIdentifier: 
+  _itemName: Happy Robot (x3)
+  _priceInLovelace: 35000000
+  _projectUid: b98c7d95-4ffb-4db7-bdb1-fb4dc769bb0c
+  _nftCount: 3
+  _itemImage: {fileID: 2800000, guid: aa21230eccebac1449e03c50b3b66f7a, type: 3}

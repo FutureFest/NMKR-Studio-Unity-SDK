@@ -15,8 +15,7 @@ namespace Nmkr.Sdk
         {
             if (!_initialized)
             {
-                Debug.LogError("NMKR SDK not initialized.");
-                return default;
+                return GetApiInitializeError<TResponse>();
             }
 
             string url = $"{_apiServerUrl}/{endpoint}";
