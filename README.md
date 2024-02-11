@@ -104,8 +104,6 @@ Below is a prototype of the designs for the demo we are creating.
 ![Add Address](./Documentation~/Images/Add-Address.png)
 
 
-
-
 ---
 
 
@@ -116,10 +114,6 @@ For further support and detailed documentation, please visit the following links
 
 - Swagger API Documentation: https://studio-api.preprod.nmkr.io/swagger/index.html
 - Learn more about NMKR: https://www.nmkr.io/
-
-## Tasklist
-
-[Tasklist](./TASKLIST.md)
 
 ---
 

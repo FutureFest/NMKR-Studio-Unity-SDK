@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Nmkr.Sdk.Schemas
@@ -240,6 +241,8 @@ namespace Nmkr.Sdk.Schemas
     public class CreateManagedWalletTransactionClass
     {
         public TransactionReceiversClass[] receivers;
+        public string senderaddress;
+        public string walletpassword;
     }
 
     [System.Serializable]
@@ -1137,9 +1140,14 @@ namespace Nmkr.Sdk.Schemas
         public TxInClass[] txIn;
         public long lovelaceSummary;
         public int tokensSum;
-        public string dataProvider;
+        public Dataproviders dataProvider;
         public long totalTokenSum;
-        public TxInTokensClass[] getAllTokens;
+        [Obsolete("getAllTokens is deprecated", false)] public TxInTokensClass[] getAllTokens;
+    }
+
+    public enum Dataproviders
+    {
+        Default, Koios, Blockfrost, Cli, Maestro
     }
 
     [System.Serializable]
