@@ -1,5 +1,3 @@
-using System;
-
 namespace Nmkr.Sdk.Schemas
 {
     public class PurchaseAndMintResult
